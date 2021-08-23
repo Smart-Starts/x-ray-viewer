@@ -10,6 +10,7 @@
   --container-padding: 120px;
 }
 
+<<<<<<< HEAD
 @font-face {
   font-family: "Nunito";
   font-style: normal;
@@ -42,6 +43,11 @@ body {
   background-color: rgb(255, 255, 255);
   font-family: "Nunito", sans-serif;
   font-weight: 300;
+=======
+body {
+  background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(221,221,221,1) 51%, rgba(255,255,255,1) 100%);
+  font-family: "Arial", sans-serif;
+>>>>>>> 8191199a9410567a4a75f55bc2a59e6ea023846e
   font-size: 16px;
   background-color: --white;
   color: --black;
@@ -81,8 +87,12 @@ html {
 
 .header {
   text-align: center;
+<<<<<<< HEAD
   padding: var(--main-padding) var(--container-padding);
   padding-bottom: 0;
+=======
+  padding: var(--main-padding) calc(20% -  var(--container-padding));
+>>>>>>> 8191199a9410567a4a75f55bc2a59e6ea023846e
   font-size: 2rem;
 }
 
@@ -90,6 +100,7 @@ html {
   text-transform: uppercase;
   border-bottom: 1px solid var(--blue);
   padding-bottom: var(--main-padding);
+<<<<<<< HEAD
   margin: 0;
   border-radius: 40px;
   font-family: "Nunito", "Arial", sans-serif;
@@ -98,6 +109,13 @@ html {
 
 .viewer {
   padding: var(--height-padding) calc(50% - 460px);
+=======
+  border-radius: 40px;
+}
+
+.viewer {
+  padding: var(--height-padding) var(--container-padding);
+>>>>>>> 8191199a9410567a4a75f55bc2a59e6ea023846e
 }
 
 .viewer h2 {
@@ -115,21 +133,34 @@ html {
 .viewer ul {
   list-style: none;
   margin: 0;
+<<<<<<< HEAD
   padding: 0;
   display: grid;
   grid-template-columns: repeat(2,1fr);
+=======
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+>>>>>>> 8191199a9410567a4a75f55bc2a59e6ea023846e
 }
 
 .viewer li {
   display: flex;
+<<<<<<< HEAD
   flex-wrap: wrap;
   justify-content: center;
+=======
+  flex-basis: 28vw;
+  justify-content: space-between;
+>>>>>>> 8191199a9410567a4a75f55bc2a59e6ea023846e
   align-items: center;
   margin-bottom: var(--height-padding);
 }
 
 .viewer label {
   font-size: 20px;
+<<<<<<< HEAD
   margin-right: var(--main-padding);
 }
 
@@ -143,6 +174,8 @@ html {
 .viewer input:placeholder {
   color: var(--black);
   opacity: 0.7;
+=======
+>>>>>>> 8191199a9410567a4a75f55bc2a59e6ea023846e
 }
 
 .viewer__button-wrapper {
@@ -161,8 +194,11 @@ html {
   outline: none;
   border-radius: 10px;
 }
+<<<<<<< HEAD
 
 .viewer button:hover,
 .viewer button:focus {
   opacity: 0.8;
 }
+=======
+>>>>>>> 8191199a9410567a4a75f55bc2a59e6ea023846e
