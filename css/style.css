@@ -1,0 +1,118 @@
+:root {
+  --black: #000;
+  --white: #fff;
+  --gray: rgb(189, 189, 189);
+  --dark-blue: rgb(78, 150, 209);
+  --blue: rgb(43, 58, 124);
+
+  --main-padding: 20px;
+  --height-padding: 50px;
+  --container-padding: 120px;
+}
+
+body {
+  background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(221,221,221,1) 51%, rgba(255,255,255,1) 100%);
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  background-color: --white;
+  color: --black;
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+
+.header {
+  text-align: center;
+  padding: var(--main-padding) calc(20% -  var(--container-padding));
+  font-size: 2rem;
+}
+
+.header h1 {
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--blue);
+  padding-bottom: var(--main-padding);
+  border-radius: 40px;
+}
+
+.viewer {
+  padding: var(--height-padding) var(--container-padding);
+}
+
+.viewer h2 {
+  padding: 0;
+  margin: 0;
+  margin-bottom: var(--main-padding);
+}
+
+.viewer__wrapper {
+  padding: var(--height-padding);
+  border: 1px solid var(--gray);
+  border-radius: 10px;
+}
+
+.viewer ul {
+  list-style: none;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+}
+
+.viewer li {
+  display: flex;
+  flex-basis: 28vw;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--height-padding);
+}
+
+.viewer label {
+  font-size: 20px;
+}
+
+.viewer__button-wrapper {
+  padding: var(--main-padding) 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.viewer button {
+  cursor: pointer;
+  padding: var(--main-padding);
+  background-color: var(--blue);
+  color: var(--white);
+  border: none;
+  outline: none;
+  border-radius: 10px;
+}
