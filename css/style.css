@@ -10,34 +10,6 @@
   --container-padding: 120px;
 }
 
-@font-face {
-  font-family: "Nunito";
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url("../fonts/nunito-light.woff2") format("woff2"),
-    url("../fonts/nunito-light.woff") format("woff");
-}
-
-@font-face {
-  font-family: "Nunito";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("../fonts/nunito-semibold.woff2") format("woff2"),
-    url("../fonts/nunito-semibold.woff") format("woff");
-}
-
-@font-face {
-  font-family: "Nunito";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("../fonts/nunito-bold.woff2") format("woff2"),
-    url("../fonts/nunito-bold.woff") format("woff");
-}
-
-
 body {
   background-color: rgb(255, 255, 255);
   font-family: "Nunito", sans-serif;
