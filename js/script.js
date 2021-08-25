@@ -1,4 +1,4 @@
-let defaultUrl = '192.168.66.220';
+let defaultUrl = '/data';
 
 const form = document.querySelector('.settings__form');
 const ipForm = document.querySelector('#ip');
