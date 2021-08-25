@@ -1,7 +1,10 @@
-let defaultUrl = '/data';
+const DATA_URL = '/data';
+const IP_URL = '/ip';
+let defaultUrl = '192.168.66.220';
 
 const form = document.querySelector('.settings__form');
 const ipForm = document.querySelector('#ip');
+ipForm.placeholder = `Дефолтный айпи: ${defaultUrl}`;
 
 // Валидация формы
 ipForm.addEventListener('invalid', () => {
@@ -15,13 +18,13 @@ ipForm.addEventListener('invalid', () => {
 const getIp = (url, newIp) => {
   try {
     fetch(url, {
-      ip: newIp,
+      newIp,
     })
       .then((response) => response.json())
       .then((newIp) => {
         // При успешной отправке в инпут вывести сообщение
-        ipForm.value = `Успешно! Новый айпи: ${newIp.ip}`;
-        defaultUrl = newIp.ip;
+        ipForm.value = `Успешно! Новый айпи: ${newIp}`;
+        defaultUrl = newIp;
       })
       .catch((error) => console.log(error));
   } catch (error) {
@@ -59,4 +62,4 @@ const viewData = (data) => {
 
 const buttonGetData = document.querySelector('#button-get-data');
 
-buttonGetData.addEventListener('click', () => getData(viewData,defaultUrl));
+buttonGetData.addEventListener('click', () => getData(viewData,DATA_URL));
