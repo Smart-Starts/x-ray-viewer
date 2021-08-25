@@ -1,0 +1,62 @@
+let defaultUrl = '/data';
+
+const form = document.querySelector('.settings__form');
+const ipForm = document.querySelector('#ip');
+
+// Валидация формы
+ipForm.addEventListener('invalid', () => {
+  if (ipForm.validity.valueMissing) {
+    ipForm.setCustomValidity('Обязательное поле');
+  } else {
+    ipForm.setCustomValidity('');
+  }
+});
+
+const getIp = (url, newIp) => {
+  try {
+    fetch(url, {
+      ip: newIp,
+    })
+      .then((response) => response.json())
+      .then((newIp) => {
+        // При успешной отправке в инпут вывести сообщение
+        ipForm.value = `Успешно! Новый айпи: ${newIp.ip}`;
+        defaultUrl = newIp.ip;
+      })
+      .catch((error) => console.log(error));
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// Событие отправки формы
+form.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  getIp(defaultUrl,ipForm.value);
+});
+
+// Get
+const getData = (onSuccess,url) => {
+  try {
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        onSuccess(data);
+      })
+      .catch((error) => console.log(error));
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+const inputs = document.querySelectorAll('input');
+
+const viewData = (data) => {
+  data.data.map((value,index) => {
+    inputs[index].value = value;
+  })
+}
+
+const buttonGetData = document.querySelector('#button-get-data');
+
+buttonGetData.addEventListener('click', () => getData(viewData,defaultUrl));
