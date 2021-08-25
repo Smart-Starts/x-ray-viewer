@@ -52,7 +52,7 @@ const getData = (onSuccess,url) => {
   }
 };
 
-const inputs = document.querySelectorAll('input');
+const inputs = document.querySelectorAll('.detector-input');
 
 const viewData = (data) => {
   data.data.map((value,index) => {
