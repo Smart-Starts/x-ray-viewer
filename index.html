@@ -16,7 +16,7 @@
   <main>
     <section class="viewer">
       <h2>Принятые данные:</h2>
-      <div class="viewer__wrapper">
+      <div class="wrapper">
         <ul>
           <li>
             <label for="1">
@@ -83,11 +83,26 @@
         </ul>
 
         <div class="viewer__button-wrapper">
-          <button>Считать данные</button>
+          <button id="button-get-data">Считать данные</button>
           <button>Сохранить в файл</button>
         </div>
       </div>
     </section>
+    <section class="settings">
+      <h2>Настройки:</h2>
+      <div class="wrapper">
+        <form action="#"   class="settings__form">
+          <label for="ip">
+            Введите желаемый ip устройства:
+          </label>
+          <input type="text" name="ip" id="ip" placeholder="Дефолтный ip: 192.166.66.200"
+          pattern="^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$">
+          <button type="submit">Сохранить IP</button>
+        </form>
+      </div>
+    </section>
+
+
   </main>
   <footer class="footer">
     <h2>Создано при поддержке ООО "Бомжестрой"</h2>
