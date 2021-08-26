@@ -2,6 +2,22 @@ const DATA_URL = '/data';
 const IP_URL = '/ip';
 const TIME_TO_REQUEST = 100;
 let defaultUrl = '192.168.66.220';
+let counter = 0;
+
+let detectorsData = {
+  1: [],
+  2: [],
+  3: [],
+  4: [],
+  5: [],
+  6: [],
+  7: [],
+  8: [],
+  9: [],
+  10: [],
+};
+
+let labels = [];
 
 const form = document.querySelector('.settings__form');
 const ipForm = document.querySelector('#ip');
@@ -64,7 +80,7 @@ const viewData = (data) => {
   })
 }
 
-let counter = 0;
+
 const resetData = () => {
   counter = 0; // Сбросить счетчик;
   labels = [];
@@ -117,20 +133,7 @@ buttonGetData.addEventListener('click', () => {
 const ctx = document.getElementById('myChart');
 const DATA_COUNT = 7;
 const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100};
-let detectorsData = {
-  1: [],
-  2: [],
-  3: [],
-  4: [],
-  5: [],
-  6: [],
-  7: [],
-  8: [],
-  9: [],
-  10: [],
-};
 
-let labels = [];
 
 
 const data = {
@@ -189,7 +192,6 @@ const data = {
   ]
 };
 
-
 const config = {
   type: 'line',
   data: data,
@@ -201,7 +203,7 @@ const config = {
       },
       title: {
         display: true,
-        text: 'Chart.js Line Chart'
+        text: 'Надеюсь заработает!'
       }
     }
   },
