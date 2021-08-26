@@ -1,5 +1,6 @@
 const DATA_URL = '/data';
 const IP_URL = '/ip';
+const TIME_TO_REQUEST = 100;
 let defaultUrl = '192.168.66.220';
 
 const form = document.querySelector('.settings__form');
@@ -18,8 +19,8 @@ ipForm.addEventListener('invalid', () => {
 const getIp = (url, newIp) => {
   try {
     fetch(url, {
-      newIp,
-    })
+        newIp,
+      })
       .then((response) => response.json())
       .then((newIp) => {
         // При успешной отправке в инпут вывести сообщение
@@ -35,11 +36,11 @@ const getIp = (url, newIp) => {
 // Событие отправки формы
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  getIp(defaultUrl,ipForm.value);
+  getIp(defaultUrl, ipForm.value);
 });
 
 // Get
-const getData = (onSuccess,url) => {
+const getData = (onSuccess, url) => {
   try {
     fetch(url)
       .then((response) => response.json())
@@ -55,26 +56,35 @@ const getData = (onSuccess,url) => {
 const inputs = document.querySelectorAll('.detector-input');
 
 const viewData = (data) => {
-  data.data.map((value,index) => {
+  data.data.map((value, index) => {
     inputs[index].value = value;
   })
 }
 
-let timer = () =>  setTimeout(function tick() {
-  getData(viewData,DATA_URL);
-  timer = setTimeout(tick, 100);
-}, 100);
+let timer = null;
+
+const startTimer = () => {
+  timer = setTimeout(function tick() {
+    getData(viewData, DATA_URL);
+    timer = setTimeout(tick, TIME_TO_REQUEST);
+  }, TIME_TO_REQUEST);
+};
+
+const stopTimer = () => {
+  clearTimeout(timer); // Stop
+}
 
 const buttonGetData = document.querySelector('#button-get-data');
 
 let start = false;
 buttonGetData.addEventListener('click', () => {
   if (!start) {
-    timer(); // start
+    buttonGetData.classList.add('viewer__get-button--start');
+    startTimer(); // start
     start = true;
-  }
-  else {
-    clearTimeout(timer); // Stop
+  } else {
+    buttonGetData.classList.remove('viewer__get-button--start');
+    stopTimer(); // stop
     start = false;
   }
 });

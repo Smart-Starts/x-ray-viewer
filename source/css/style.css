@@ -4,7 +4,7 @@
   --gray: rgb(189, 189, 189);
   --dark-blue: rgb(78, 150, 209);
   --blue: rgb(43, 58, 124);
-
+  --red: rgb(97, 0, 0);
   --main-padding: 20px;
   --height-padding: 50px;
   --container-padding: 120px;
@@ -185,6 +185,10 @@ html {
 .viewer button:hover,
 .viewer button:focus {
   opacity: 0.8;
+}
+
+.viewer .viewer__get-button--start {
+  background-color: var(--red);
 }
 
 .footer {
