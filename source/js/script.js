@@ -60,7 +60,7 @@ const viewData = (data) => {
   })
 }
 
-let timer = setTimeout(function tick() {
+let timer = () =>  setTimeout(function tick() {
   getData(viewData,DATA_URL);
   timer = setTimeout(tick, 100);
 }, 100);
