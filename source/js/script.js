@@ -19,12 +19,8 @@ let detectorsData = {
 
 let labels = [];
 
-
-
 //graphics
 const ctx = document.getElementById('myChart');
-const DATA_COUNT = 7;
-const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100};
 
 const data = {
   labels: labels,
@@ -157,11 +153,23 @@ const viewData = (data) => {
   data.data.map((value, index) => {
     inputs[index].value = value;
     detectorsData[index+1].push(Number(value));
-    counter = counter + 1;
-    labels.push(counter);
-    myChart.update();
   })
+  counter = counter + 1;
+  labels.push(counter);
 }
+
+
+// const mokData = [Math.random(2),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random()];
+
+// document.querySelector('#send').addEventListener('click',() => {
+//   mokData.map((value, index) => {
+//     inputs[index].value = value;
+//     detectorsData[index+1].push(Number(value));
+//   })
+//   counter = counter + 1;
+//   labels.push(counter);
+//   myChart.update();
+// })
 
 const resetData = () => {
   counter = 0; // Сбросить счетчик;
@@ -181,12 +189,36 @@ const resetData = () => {
   myChart.update();
 }
 
+//debounce
+function debounce(func, wait, immediate) {
+  let timeout;
+
+  return function executedFunction() {
+    const context = this;
+    const args = arguments;
+
+    const later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+
+    const callNow = immediate && !timeout;
+
+    clearTimeout(timeout);
+
+    timeout = setTimeout(later, wait);
+
+    if (callNow) func.apply(context, args);
+  };
+};
+
+
 let timer = null;
 
 const startTimer = () => {
   timer = setTimeout(function tick() {
-    resetData();
     getData(viewData, DATA_URL);
+    debounce(myChart.update(),1000,true);
     timer = setTimeout(tick, TIME_TO_REQUEST);
   }, TIME_TO_REQUEST);
 };
@@ -201,6 +233,7 @@ const buttonGetData = document.querySelector('#button-get-data');
 let start = false;
 buttonGetData.addEventListener('click', () => {
   if (!start) {
+    resetData();
     buttonGetData.classList.add('viewer__get-button--start');
     startTimer(); // start
     start = true;
