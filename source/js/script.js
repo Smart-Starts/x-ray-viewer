@@ -156,6 +156,7 @@ const viewData = (data) => {
   })
   counter = counter + 1;
   labels.push(counter);
+  myChart.update();
 }
 
 
@@ -218,7 +219,6 @@ let timer = null;
 const startTimer = () => {
   timer = setTimeout(function tick() {
     getData(viewData, DATA_URL);
-    debounce(myChart.update(),1000,true);
     timer = setTimeout(tick, TIME_TO_REQUEST);
   }, TIME_TO_REQUEST);
 };
