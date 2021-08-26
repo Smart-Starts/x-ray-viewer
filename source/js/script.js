@@ -60,6 +60,19 @@ const viewData = (data) => {
   })
 }
 
+let timer = setTimeout(function tick() {
+  getData(viewData,DATA_URL);
+  timer = setTimeout(tick, 100);
+}, 100);
+
 const buttonGetData = document.querySelector('#button-get-data');
 
-buttonGetData.addEventListener('click', () => getData(viewData,DATA_URL));
+let start = false;
+buttonGetData.addEventListener('click', () => {
+  if (!start) {
+    timer(); // start
+  }
+  else {
+    clearTimeout(timer); // Stop
+  }
+});
