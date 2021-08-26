@@ -233,7 +233,7 @@ const buttonGetData = document.querySelector('#button-get-data');
 let start = false;
 buttonGetData.addEventListener('click', () => {
   if (!start) {
-    resetData();
+  //  resetData();
     buttonGetData.classList.add('viewer__get-button--start');
     startTimer(); // start
     start = true;
