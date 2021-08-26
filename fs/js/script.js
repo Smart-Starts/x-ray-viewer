@@ -74,12 +74,11 @@ const inputs = document.querySelectorAll('.detector-input');
 const viewData = (data) => {
   data.data.map((value, index) => {
     inputs[index].value = value;
-    detectorsData[index].push(Number(value));
+    detectorsData[index+1].push(Number(value));
     labels.push = counter + 1;
     myChart.update();
   })
 }
-
 
 const resetData = () => {
   counter = 0; // Сбросить счетчик;
