@@ -71,8 +71,10 @@ let start = false;
 buttonGetData.addEventListener('click', () => {
   if (!start) {
     timer(); // start
+    start = true;
   }
   else {
     clearTimeout(timer); // Stop
+    start = false;
   }
 });
