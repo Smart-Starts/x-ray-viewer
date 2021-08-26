@@ -67,8 +67,9 @@ html {
   font-weight: 600;
 }
 
-.settings,
-.viewer  {
+.viewer,
+.graph,
+.settings {
   padding: var(--height-padding) calc(50% - 460px);
 }
 

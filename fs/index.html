@@ -14,6 +14,12 @@
     <h1>Рентгенопоказыватель</h1>
   </header>
   <main>
+
+    <section class="graph">
+      <div class="wrapper">
+        <canvas id="myChart" width="400" height="400"></canvas>
+      </div>
+    </section>
     <section class="viewer">
       <h2>Принятые данные:</h2>
       <div class="wrapper">
@@ -86,15 +92,17 @@
         </div>
       </div>
     </section>
+
+
     <section class="settings">
       <h2>Настройки:</h2>
       <div class="wrapper">
-        <form action="#"   class="settings__form">
+        <form action="#" class="settings__form">
           <label for="ip">
             Введите желаемый ip устройства:
           </label>
           <input type="text" name="ip" id="ip"
-          pattern="^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$">
+            pattern="^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$">
           <button type="submit">Сохранить IP</button>
         </form>
       </div>
@@ -105,6 +113,7 @@
   <footer class="footer">
     <h2>Создано при поддержке ООО "Бомжестрой"</h2>
   </footer>
+  <script src="js/chart.js"></script>
   <script src="js/script.js"></script>
 </body>
 

@@ -58,17 +58,41 @@ const inputs = document.querySelectorAll('.detector-input');
 const viewData = (data) => {
   data.data.map((value, index) => {
     inputs[index].value = value;
+    detectorsData[index].push(Number(value));
+    labels.push = counter + 1;
+    myChart.update();
   })
+}
+
+let counter = 0;
+const resetData = () => {
+  counter = 0; // Сбросить счетчик;
+  labels = [];
+  detectorsData = {
+    1: [],
+    2: [],
+    3: [],
+    4: [],
+    5: [],
+    6: [],
+    7: [],
+    8: [],
+    9: [],
+    10: [],
+  };
+  myChart.update();
 }
 
 let timer = null;
 
 const startTimer = () => {
   timer = setTimeout(function tick() {
+    resetData();
     getData(viewData, DATA_URL);
     timer = setTimeout(tick, TIME_TO_REQUEST);
   }, TIME_TO_REQUEST);
 };
+
 
 const stopTimer = () => {
   clearTimeout(timer); // Stop
@@ -88,3 +112,100 @@ buttonGetData.addEventListener('click', () => {
     start = false;
   }
 });
+
+//graphics
+const ctx = document.getElementById('myChart');
+const DATA_COUNT = 7;
+const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100};
+let detectorsData = {
+  1: [],
+  2: [],
+  3: [],
+  4: [],
+  5: [],
+  6: [],
+  7: [],
+  8: [],
+  9: [],
+  10: [],
+};
+
+let labels = [];
+
+
+const data = {
+  labels: labels,
+  datasets: [
+    {
+      label: 'Детектор 1',
+      data: detectorsData[1],
+      borderColor: 'red',
+    },
+    {
+      label: 'Детектор 2',
+      data: detectorsData[2],
+      borderColor: 'RoyalBlue',
+    },
+    {
+      label: 'Детектор 3',
+      data: detectorsData[3],
+      borderColor: 'green',
+    },
+    {
+      label: 'Детектор 4',
+      data: detectorsData[4],
+      borderColor: 'yellow',
+    },
+    {
+      label: 'Детектор 5',
+      data: detectorsData[5],
+      borderColor: 'orange',
+    },
+    {
+      label: 'Детектор 6',
+      data: detectorsData[6],
+      borderColor: 'DeepPink',
+    },
+    {
+      label: 'Детектор 7',
+      data: detectorsData[7],
+      borderColor: 'DarkKhaki',
+    },
+    {
+      label: 'Детектор 8',
+      data: detectorsData[8],
+      borderColor: 'Indigo',
+    },
+    {
+      label: 'Детектор 9',
+      data: detectorsData[9],
+      borderColor: 'Aqua',
+    },
+    {
+      label: 'Детектор 10',
+      data: detectorsData[10],
+      borderColor: 'MidnightBlue',
+    },
+  ]
+};
+
+
+const config = {
+  type: 'line',
+  data: data,
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Chart.js Line Chart'
+      }
+    }
+  },
+};
+
+
+var myChart = new Chart(ctx, config);
