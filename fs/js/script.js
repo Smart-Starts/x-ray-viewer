@@ -75,6 +75,7 @@ const viewData = (data) => {
   data.data.map((value, index) => {
     inputs[index].value = value;
     detectorsData[index+1].push(Number(value));
+    counter = counter + 1;
     labels.push = counter + 1;
     myChart.update();
   })
