@@ -3,13 +3,18 @@
   "version": "1.0.0",
   "description": "Стартовый шаблон сборки Лиги А",
   "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
     "@htmlacademy/editorconfig-cli": "1.x",
     "browser-sync": "2.26.x",
     "eslint": "^7.3.1",
     "eslint-config-htmlacademy": "^4.0.2",
     "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-concat": "^2.6.1",
     "gulp-csso": "^3.0.1",
     "gulp-rename": "^1.4.0",
+    "gulp-uglify": "^3.0.2",
     "stylelint": "^13.13.1",
     "stylelint-config-htmlacademy": "^0.1.10"
   },
