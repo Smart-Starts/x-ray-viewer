@@ -134,18 +134,31 @@ form.addEventListener('submit', (evt) => {
 });
 
 // Get
-const getData = (onSuccess, url) => {
+// const getData = (onSuccess, url) => {
+//   try {
+//     fetch(url)
+//       .then((response) => response.json())
+//       .then((data) => {
+//         onSuccess(data);
+//       })
+//       .catch((error) => console.log(error));
+//   } catch (error) {
+//     console.log(error)
+//   }
+// };
+
+//Web Socket Socket
+const openSocket = (onSuccess, url) => {
   try {
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        onSuccess(data);
-      })
-      .catch((error) => console.log(error));
+    let socket = new WebSocket(`wss://${url}`);
+    socket.onmessage = function(event) {
+      onSuccess(event.data.json());
+    };
+
   } catch (error) {
     console.log(error)
   }
-};
+}
 
 const inputs = document.querySelectorAll('.detector-input');
 
@@ -235,7 +248,7 @@ buttonGetData.addEventListener('click', () => {
   if (!start) {
   //  resetData();
     buttonGetData.classList.add('viewer__get-button--start');
-    startTimer(); // start
+    openSocket(viewData,DATA_URL); // start
     start = true;
   } else {
     buttonGetData.classList.remove('viewer__get-button--start');
