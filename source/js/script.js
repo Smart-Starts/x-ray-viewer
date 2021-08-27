@@ -248,7 +248,7 @@ buttonGetData.addEventListener('click', () => {
   if (!start) {
   //  resetData();
     buttonGetData.classList.add('viewer__get-button--start');
-    openSocket(viewData,DATA_URL); // start
+    openSocket(viewData,defaultUrl); // start
     start = true;
   } else {
     buttonGetData.classList.remove('viewer__get-button--start');
