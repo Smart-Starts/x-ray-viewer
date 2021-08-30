@@ -151,10 +151,10 @@ let socket = null;
 //Web Socket Socket
 const openSocket = (onSuccess, url) => {
   try {
-    socket = new WebSocket(`ws://${defaultUrl}/data`);
-    socket.onmessage = function(event) {
+    socket = new WebSocket(`ws://${url}/data`);
+    socket.addEventListener('message', function (event) {
       onSuccess(event.data.json());
-    };
+    });
   } catch (error) {
     console.log(error)
   }
