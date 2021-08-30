@@ -150,7 +150,7 @@ form.addEventListener('submit', (evt) => {
 //Web Socket Socket
 const openSocket = (onSuccess, url) => {
   try {
-    let socket = new WebSocket(`wss://${url}`);
+    let socket = new WebSocket(`ws://${url}`);
     socket.onmessage = function(event) {
       onSuccess(event.data.json());
     };
@@ -248,7 +248,7 @@ buttonGetData.addEventListener('click', () => {
   if (!start) {
   //  resetData();
     buttonGetData.classList.add('get-button--start');
-    openSocket(viewData,'1'); // start
+    openSocket(viewData,defaultUrl); // start
     start = true;
   } else {
     buttonGetData.classList.remove('get-button--start');
