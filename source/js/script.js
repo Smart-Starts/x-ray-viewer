@@ -153,7 +153,7 @@ const openSocket = (onSuccess, url) => {
   try {
     socket = new WebSocket(`ws://${defaultUrl}`);
     socket.onopen = function (event) {
-      socket.send(DATA_URL);
+      socket.send('/data');
     };
     socket.onmessage = function(event) {
       onSuccess(event.data.json());
