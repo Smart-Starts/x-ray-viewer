@@ -3,7 +3,7 @@ const IP_URL = '/ip';
 const TIME_TO_REQUEST = 100;
 let defaultUrl = '192.168.66.220';
 let counter = 0;
-let socket = new WebSocket(`ws://${defaultUrl}/data`);
+let socket = null;
 
 let detectorsData = {
   1: [],
@@ -152,6 +152,8 @@ form.addEventListener('submit', (evt) => {
 //Web Socket Socket
 const openSocket = (onSuccess, url) => {
   try {
+    socket = new WebSocket(`ws://${defaultUrl}/data`);
+
     socket.onmessage = function (event) {
       console.log(event.data);
       onSuccess(event.data.json());
