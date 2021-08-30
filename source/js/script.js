@@ -152,7 +152,7 @@ form.addEventListener('submit', (evt) => {
 //Web Socket Socket
 const openSocket = (onSuccess, url) => {
   try {
-    socket = new WebSocket(`ws://${defaultUrl}/data`);
+    socket = new WebSocket(`ws://${defaultUrl}`);
 
     socket.onmessage = function (event) {
       console.log(event.data);
