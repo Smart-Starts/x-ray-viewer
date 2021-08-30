@@ -3,6 +3,7 @@ const IP_URL = '/ip';
 const TIME_TO_REQUEST = 100;
 let defaultUrl = '192.168.66.220';
 let counter = 0;
+let socket = new WebSocket(`ws://${defaultUrl}/data`);
 
 let detectorsData = {
   1: [],
@@ -146,15 +147,15 @@ form.addEventListener('submit', (evt) => {
 //     console.log(error)
 //   }
 // };
-let socket = null;
+
 
 //Web Socket Socket
 const openSocket = (onSuccess, url) => {
   try {
-    socket = new WebSocket(`ws://${url}/data`);
-    socket.addEventListener('message', function (event) {
+    socket.onmessage = function (event) {
+      console.log(event.data);
       onSuccess(event.data.json());
-    });
+    };
   } catch (error) {
     console.log(error)
   }
@@ -162,7 +163,7 @@ const openSocket = (onSuccess, url) => {
 
 const closeSocket = () => {
   try {
-    socket.send('/close')
+    socket.send('/close');
     socket.close();
   } catch (error) {
     console.log(error)
