@@ -146,12 +146,12 @@ form.addEventListener('submit', (evt) => {
 //     console.log(error)
 //   }
 // };
-
-let socket = new WebSocket(`ws://${defaultUrl}`);
+let socket = null;
 
 //Web Socket Socket
 const openSocket = (onSuccess, url) => {
   try {
+    socket = new WebSocket(`ws://${defaultUrl}`);
     socket.onopen = function (event) {
       socket.send(DATA_URL);
     };
