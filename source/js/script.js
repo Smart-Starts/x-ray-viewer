@@ -165,6 +165,7 @@ const openSocket = (onSuccess, url) => {
 
 const closeSocket = () => {
   try {
+    socket.send('/close')
     socket.close();
   } catch (error) {
     console.log(error)
