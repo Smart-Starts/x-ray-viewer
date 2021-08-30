@@ -15,7 +15,16 @@
     <h1>Рентгенопоказыватель</h1>
   </header>
   <main>
-
+    <section class="control">
+      <div class="wrapper">
+        <h2>Управление:</h2>
+        <div class="button-wrapper">
+          <button id="button-get-data" class="get-button">Старт / Стоп</button>
+          <button id="button-reset">Сброс</button>
+          <button id="button-save">Сохранить в файл</button>
+        </div>
+      </div>
+    </section>
     <section class="graph">
       <!-- <button id="send">Отправить</button> -->
       <div class="wrapper">
@@ -87,11 +96,6 @@
             <input class="detector-input" readonly type="text" name="ninth-detector" id="10" placeholder="Waiting...">
           </li>
         </ul>
-
-        <div class="viewer__button-wrapper">
-          <button id="button-get-data" class="viewer__get-button">Старт / Стоп</button>
-          <button>Сохранить в файл</button>
-        </div>
       </div>
     </section>
 

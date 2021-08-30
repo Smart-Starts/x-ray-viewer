@@ -247,11 +247,11 @@ let start = false;
 buttonGetData.addEventListener('click', () => {
   if (!start) {
   //  resetData();
-    buttonGetData.classList.add('viewer__get-button--start');
+    buttonGetData.classList.add('get-button--start');
     openSocket(viewData,defaultUrl); // start
     start = true;
   } else {
-    buttonGetData.classList.remove('viewer__get-button--start');
+    buttonGetData.classList.remove('get-button--start');
     stopTimer(); // stop
     start = false;
   }
