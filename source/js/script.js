@@ -151,7 +151,7 @@ let socket = null;
 //Web Socket Socket
 const openSocket = (onSuccess, url) => {
   try {
-    socket = new WebSocket(`ws://${defaultUrl}`);
+    socket = new WebSocket(`ws://${defaultUrl}/data`);
     socket.onopen = function (event) {
       socket.send('/data');
     };
