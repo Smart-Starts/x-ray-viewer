@@ -147,17 +147,25 @@ form.addEventListener('submit', (evt) => {
 //   }
 // };
 
+let socket = new WebSocket(`ws://${url}`);
+
 //Web Socket Socket
 const openSocket = (onSuccess, url) => {
   try {
-    let socket = new WebSocket(`ws://${url}`);
     socket.onopen = function (event) {
       socket.send(DATA_URL);
     };
     socket.onmessage = function(event) {
       onSuccess(event.data.json());
     };
+  } catch (error) {
+    console.log(error)
+  }
+}
 
+const closeSocket = () => {
+  try {
+    socket.close();
   } catch (error) {
     console.log(error)
   }
@@ -206,30 +214,6 @@ const resetData = () => {
   myChart.update();
 }
 
-//debounce
-function debounce(func, wait, immediate) {
-  let timeout;
-
-  return function executedFunction() {
-    const context = this;
-    const args = arguments;
-
-    const later = function() {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-
-    const callNow = immediate && !timeout;
-
-    clearTimeout(timeout);
-
-    timeout = setTimeout(later, wait);
-
-    if (callNow) func.apply(context, args);
-  };
-};
-
-
 let timer = null;
 
 const startTimer = () => {
@@ -255,6 +239,7 @@ buttonGetData.addEventListener('click', () => {
     start = true;
   } else {
     buttonGetData.classList.remove('get-button--start');
+    closeSocket();
     stopTimer(); // stop
     start = false;
   }
