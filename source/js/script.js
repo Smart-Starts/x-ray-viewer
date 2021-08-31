@@ -1,7 +1,7 @@
 const DATA_URL = '/data';
 const IP_URL = '/ip';
 const TIME_TO_REQUEST = 100;
-let defaultUrl = '192.168.66.220';
+let defaultUrl = '192.168.66.220:8080';
 let counter = 0;
 let socket = null;
 
