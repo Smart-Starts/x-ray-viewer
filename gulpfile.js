@@ -34,9 +34,9 @@ gulp.task("server", function () {
     ui: false
   });
 
-  gulp.watch("source/css/*.css", gulp.series("css", "refresh"));
-  gulp.watch("source/*.html", gulp.series("html", "refresh"));
-  gulp.watch("source/js/*.js", gulp.series("js", "refresh"));
+  gulp.watch("fs/css/*.css", gulp.series("css", "refresh"));
+  gulp.watch("fs/*.html", gulp.series("html", "refresh"));
+  gulp.watch("fs/js/*.js", gulp.series("js", "refresh"));
 });
 
 gulp.task("refresh", function (done) {

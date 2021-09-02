@@ -155,11 +155,10 @@ const openSocket = (onSuccess, url) => {
     socket = new WebSocket(`ws://${defaultUrl}`);
     socket.onopen = function (event) {
       console.log('open');
-      socket.send('/data');
     };
     socket.onmessage = function (event) {
       console.log(event.data);
-      onSuccess(event.data.json());
+      onSuccess(event.data);
     };
   } catch (error) {
     console.log(error)
@@ -178,7 +177,8 @@ const closeSocket = () => {
 const inputs = document.querySelectorAll('.detector-input');
 
 const viewData = (data) => {
-  data.data.map((value, index) => {
+  const dataJson = JSON.parse(data);
+  dataJson.data.map((value, index) => {
     inputs[index].value = value;
     detectorsData[index+1].push(Number(value));
   })
@@ -186,19 +186,6 @@ const viewData = (data) => {
   labels.push(counter);
   myChart.update();
 }
-
-
-// const mokData = [Math.random(2),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random()];
-
-// document.querySelector('#send').addEventListener('click',() => {
-//   mokData.map((value, index) => {
-//     inputs[index].value = value;
-//     detectorsData[index+1].push(Number(value));
-//   })
-//   counter = counter + 1;
-//   labels.push(counter);
-//   myChart.update();
-// })
 
 const resetData = () => {
   counter = 0; // Сбросить счетчик;
@@ -218,26 +205,11 @@ const resetData = () => {
   myChart.update();
 }
 
-let timer = null;
-
-const startTimer = () => {
-  timer = setTimeout(function tick() {
-    getData(viewData, DATA_URL);
-    timer = setTimeout(tick, TIME_TO_REQUEST);
-  }, TIME_TO_REQUEST);
-};
-
-
-const stopTimer = () => {
-  clearTimeout(timer); // Stop
-}
-
 const buttonGetData = document.querySelector('#button-get-data');
 
 let start = false;
 buttonGetData.addEventListener('click', () => {
   if (!start) {
-  //  resetData();
     buttonGetData.classList.add('get-button--start');
     openSocket(viewData,defaultUrl); // start
     start = true;
