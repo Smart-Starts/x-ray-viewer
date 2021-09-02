@@ -134,20 +134,6 @@ form.addEventListener('submit', (evt) => {
   getIp(defaultUrl, ipForm.value);
 });
 
-// Get
-// const getData = (onSuccess, url) => {
-//   try {
-//     fetch(url)
-//       .then((response) => response.json())
-//       .then((data) => {
-//         onSuccess(data);
-//       })
-//       .catch((error) => console.log(error));
-//   } catch (error) {
-//     console.log(error)
-//   }
-// };
-
 
 //Web Socket Socket
 const openSocket = (onSuccess, url) => {
@@ -167,7 +153,6 @@ const openSocket = (onSuccess, url) => {
 
 const closeSocket = () => {
   try {
-    socket.send('/close');
     socket.close();
   } catch (error) {
     console.log(error)
@@ -216,7 +201,6 @@ buttonGetData.addEventListener('click', () => {
   } else {
     buttonGetData.classList.remove('get-button--start');
     closeSocket();
-    stopTimer(); // stop
     start = false;
   }
 });
