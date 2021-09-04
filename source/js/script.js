@@ -1,7 +1,7 @@
 const DATA_URL = '/data';
 const IP_URL = '/ip';
 const TIME_TO_REQUEST = 100;
-let defaultUrl = '192.168.66.220:8080';
+let defaultUrl = '192.168.1.220:8080';
 let counter = 0;
 let socket = null;
 
@@ -84,9 +84,15 @@ const config = {
   data: data,
   options: {
     responsive: true,
+    animation: {
+      duration: 0
+  },
     plugins: {
       legend: {
         position: 'top',
+      },
+      tooltip: {
+        enabled: false
       },
       title: {
         display: true,
