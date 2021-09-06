@@ -4,6 +4,7 @@ const TIME_TO_REQUEST = 100;
 let defaultUrl = '192.168.1.220:8080';
 let counter = 0;
 let socket = null;
+let ArrSize = 100;
 
 let detectorsData = {
   1: [],
@@ -30,59 +31,104 @@ const data = {
       label: 'Детектор 1',
       data: detectorsData[1],
       borderColor: 'red',
+      pointBorderColor: 'transparent',
+      pointBackgroundColor: 'transparent',
+      pointHoverBorderColor: 'blue',
+      pointHoverBackgroundColor: 'red',
     },
     {
       label: 'Детектор 2',
       data: detectorsData[2],
       borderColor: 'RoyalBlue',
+      pointBorderColor: 'transparent',
+      pointBackgroundColor: 'transparent',
+      pointHoverBorderColor: 'blue',
+      pointHoverBackgroundColor: 'RoyalBlue',
     },
     {
       label: 'Детектор 3',
       data: detectorsData[3],
       borderColor: 'green',
+      pointBorderColor: 'transparent',
+      pointBackgroundColor: 'transparent',
+      pointHoverBorderColor: 'blue',
+      pointHoverBackgroundColor: 'green',
     },
     {
       label: 'Детектор 4',
       data: detectorsData[4],
       borderColor: 'yellow',
+      pointBorderColor: 'transparent',
+      pointBackgroundColor: 'transparent',
+      pointHoverBorderColor: 'blue',
+      pointHoverBackgroundColor: 'yellow',
     },
     {
       label: 'Детектор 5',
       data: detectorsData[5],
       borderColor: 'orange',
+      pointBorderColor: 'transparent',
+      pointBackgroundColor: 'transparent',
+      pointHoverBorderColor: 'blue',
+      pointHoverBackgroundColor: 'orange',
     },
     {
       label: 'Детектор 6',
       data: detectorsData[6],
       borderColor: 'DeepPink',
+      pointBorderColor: 'transparent',
+      pointBackgroundColor: 'transparent',
+      pointHoverBorderColor: 'blue',
+      pointHoverBackgroundColor: 'DeepPink',
     },
     {
       label: 'Детектор 7',
       data: detectorsData[7],
       borderColor: 'DarkKhaki',
+      pointBorderColor: 'transparent',
+      pointBackgroundColor: 'transparent',
+      pointHoverBorderColor: 'blue',
+      pointHoverBackgroundColor: 'DarkKhaki',
     },
     {
       label: 'Детектор 8',
       data: detectorsData[8],
       borderColor: 'Indigo',
+      pointBorderColor: 'transparent',
+      pointBackgroundColor: 'transparent',
+      pointHoverBorderColor: 'blue',
+      pointHoverBackgroundColor: 'Indigo',
     },
     {
       label: 'Детектор 9',
       data: detectorsData[9],
       borderColor: 'Aqua',
+      pointBorderColor: 'transparent',
+      pointBackgroundColor: 'transparent',
+      pointHoverBorderColor: 'blue',
+      pointHoverBackgroundColor: 'Aqua',
     },
     {
       label: 'Детектор 10',
       data: detectorsData[10],
       borderColor: 'MidnightBlue',
+      pointBorderColor: 'transparent',
+      pointBackgroundColor: 'transparent',
+      pointHoverBorderColor: 'blue',
+      pointHoverBackgroundColor: 'MidnightBlue',
     },
   ]
 };
-
+// настройки chart
 const config = {
   type: 'line',
   data: data,
+  radius: 0,
+  fill:false,
   options: {
+    interaction: {
+      intersect: false
+    },
     responsive: true,
     animation: {
       duration: 0
@@ -145,6 +191,7 @@ form.addEventListener('submit', (evt) => {
 const openSocket = (onSuccess, url) => {
   try {
     socket = new WebSocket(`ws://${defaultUrl}`);
+    socket.binaryType = 'arraybuffer';
     socket.onopen = function (event) {
       console.log('open');
     };
@@ -168,13 +215,25 @@ const closeSocket = () => {
 const inputs = document.querySelectorAll('.detector-input');
 
 const viewData = (data) => {
-  const dataJson = JSON.parse(data);
-  dataJson.data.map((value, index) => {
-    inputs[index].value = value;
-    detectorsData[index+1].push(Number(value));
-  })
-  counter = counter + 1;
-  labels.push(counter);
+  let view = new Uint16Array(data);
+  // const dataJson = JSON.parse(data);
+  // dataJson.data.map((value, index) => {
+  // inputs[index].value = value;
+  // detectorsData[index+1].push(Number(value));
+  // })
+  for (var i=0; i<view.length;)
+  {
+    
+    i=i+4;
+   
+  }
+  detectorsData[1].push(Number(view[0]));
+    detectorsData[2].push(Number(view[1]));
+    detectorsData[3].push(Number(view[2]));
+    detectorsData[4].push(Number(view[3]));
+   counter = counter + 1;
+    labels.push(counter);
+  
   myChart.update();
 }
 
