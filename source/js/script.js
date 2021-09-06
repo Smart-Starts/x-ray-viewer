@@ -1,7 +1,7 @@
 const DATA_URL = '/data';
 const IP_URL = '/ip';
 const TIME_TO_REQUEST = 100;
-let defaultUrl = '192.168.1.220:8080';
+let defaultUrl = '192.168.66.220:8080';
 let counter = 0;
 let socket = null;
 let ArrSize = 100;
@@ -19,6 +19,20 @@ let detectorsData = {
   10: [],
 };
 
+let saveData = {
+  1: [],
+  2: [],
+  3: [],
+  4: [],
+  5: [],
+  6: [],
+  7: [],
+  8: [],
+  9: [],
+  10: [],
+};
+
+
 let labels = [];
 
 //graphics
@@ -26,8 +40,7 @@ const ctx = document.getElementById('myChart');
 
 const data = {
   labels: labels,
-  datasets: [
-    {
+  datasets: [{
       label: 'Детектор 1',
       data: detectorsData[1],
       borderColor: 'red',
@@ -124,7 +137,7 @@ const config = {
   type: 'line',
   data: data,
   radius: 0,
-  fill:false,
+  fill: false,
   options: {
     interaction: {
       intersect: false
@@ -132,7 +145,7 @@ const config = {
     responsive: true,
     animation: {
       duration: 0
-  },
+    },
     plugins: {
       legend: {
         position: 'top',
@@ -214,26 +227,45 @@ const closeSocket = () => {
 
 const inputs = document.querySelectorAll('.detector-input');
 
-const viewData = (data) => {
+const saveData = (data) => {
   let view = new Uint16Array(data);
-  // const dataJson = JSON.parse(data);
-  // dataJson.data.map((value, index) => {
-  // inputs[index].value = value;
-  // detectorsData[index+1].push(Number(value));
-  // })
-  for (var i=0; i<view.length;)
-  {
-    
-    i=i+4;
-   
+
+  switch (view[0]) {
+    case 1:
+        for (let i = 0; i < view.length; i=i+4) {
+          saveData[1].push(Number(view[i+1]));
+          saveData[2].push(Number(view[i+2]));
+          saveData[3].push(Number(view[i+3]));
+          saveData[4].push(Number(view[i+4]));
+        }
+      break;
+    case 2:
+      for (let i = 0; i < view.length; i=i+2) {
+        saveData[5].push(Number(view[i+1]));
+        saveData[6].push(Number(view[i+2]));
+      }
+      break;
+    case 3:
+      for (let i = 0; i < view.length; i=i+4) {
+        saveData[7].push(Number(view[i+1]));
+        saveData[8].push(Number(view[i+2]));
+        saveData[9].push(Number(view[i+3]));
+        saveData[10].push(Number(view[i+4]));
+      }
+      break;
+    default:
+      break;
   }
-  detectorsData[1].push(Number(view[0]));
-    detectorsData[2].push(Number(view[1]));
-    detectorsData[3].push(Number(view[2]));
-    detectorsData[4].push(Number(view[3]));
-   counter = counter + 1;
-    labels.push(counter);
-  
+
+  counter = counter + 1;
+  labels.push(counter);
+}
+
+const viewData = () => {
+  Object.keys(detectorsData).forEach((key) => {
+    detectorsData[key] = [...detectorsData[key],saveData[key]];
+  })
+
   myChart.update();
 }
 
@@ -261,7 +293,7 @@ let start = false;
 buttonGetData.addEventListener('click', () => {
   if (!start) {
     buttonGetData.classList.add('get-button--start');
-    openSocket(viewData,defaultUrl); // start
+    openSocket(viewData, defaultUrl); // start
     start = true;
   } else {
     buttonGetData.classList.remove('get-button--start');

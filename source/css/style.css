@@ -179,6 +179,24 @@ h2 {
 .button-wrapper .get-button--start {
   background-color: var(--red);
   color: var(--white);
+  position: relative;
+}
+
+.button-wrapper .get-button--start::after {
+  position: absolute;
+  content: "";
+  top: 15px;
+  left: 20px;
+  z-index: 5;
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--blue);
+  border-style: inset;
+  border-radius: 50%;
+  animation: loading;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
 .footer {
@@ -192,4 +210,14 @@ h2 {
   font-style: italic;
   color: var(--gray);
   border-top: 1px solid var(--gray);
+}
+
+@keyframes loading {
+  0% {
+    transform: rotateZ(0deg);
+  }
+
+  100% {
+    transform: rotateZ(360deg);
+  }
 }
