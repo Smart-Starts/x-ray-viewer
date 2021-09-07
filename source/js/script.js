@@ -38,6 +38,14 @@ let labels = [];
 //graphics
 const ctx = document.getElementById('myChart');
 
+const buttonReset = document.querySelector('#button-reset');
+
+buttonReset.addEventListener('click', () => {
+  viewData();
+  console.log(detectorsData);
+});
+
+
 const data = {
   labels: labels,
   datasets: [{
@@ -225,9 +233,10 @@ const closeSocket = () => {
   }
 }
 
+
 const inputs = document.querySelectorAll('.detector-input');
 
-const saveData = (data) => {
+const saveDataToArray = (data) => {
   let view = new Uint16Array(data);
 
   switch (view[0]) {
@@ -263,7 +272,7 @@ const saveData = (data) => {
 
 const viewData = () => {
   Object.keys(detectorsData).forEach((key) => {
-    detectorsData[key] = [...detectorsData[key],saveData[key]];
+    detectorsData[key] = detectorsData[key].concat(saveData[key]);
   })
 
   myChart.update();
@@ -293,7 +302,7 @@ let start = false;
 buttonGetData.addEventListener('click', () => {
   if (!start) {
     buttonGetData.classList.add('get-button--start');
-    openSocket(viewData, defaultUrl); // start
+    openSocket(saveDataToArray, defaultUrl); // start
     start = true;
   } else {
     buttonGetData.classList.remove('get-button--start');
