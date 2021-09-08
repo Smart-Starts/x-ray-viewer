@@ -12,8 +12,8 @@ var babel = require('gulp-babel');
 gulp.task('scripts', function() {
   return gulp.src('source/js/*.js')
     .pipe(concat('script.js'))
-    .pipe(babel())
-    .pipe(uglify())
+    //.pipe(babel())
+    //.pipe(uglify())
     .pipe(gulp.dest('fs/js'));
 });
 

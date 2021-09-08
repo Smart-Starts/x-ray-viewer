@@ -5,6 +5,11 @@ let defaultUrl = '192.168.66.220:8080';
 let counter = 0;
 let socket = null;
 let ArrSize = 100;
+let counterFirstBuffer = 0;
+let counterSecondBuffer = 0;
+let counterThirdBuffer = 0;
+let counterPackets = 0;
+const buttonReset = document.querySelector('#button-reset');
 
 let detectorsData = {
   1: [],
@@ -32,21 +37,11 @@ let saveData = {
   10: [],
 };
 
-
 let labels = [];
-
 //graphics
-const ctx = document.getElementById('myChart');
+var ctx = document.getElementById('myChart');
 
-const buttonReset = document.querySelector('#button-reset');
-
-buttonReset.addEventListener('click', () => {
-  viewData();
-  console.log(detectorsData);
-});
-
-
-const data = {
+var data = {
   labels: labels,
   datasets: [{
       label: 'Детектор 1',
@@ -141,7 +136,7 @@ const data = {
   ]
 };
 // настройки chart
-const config = {
+var config = {
   type: 'line',
   data: data,
   radius: 0,
@@ -165,7 +160,7 @@ const config = {
         display: true,
         text: 'График значений детекторов'
       }
-    }
+    },
   },
 };
 
@@ -241,40 +236,66 @@ const saveDataToArray = (data) => {
 
   switch (view[0]) {
     case 1:
-        for (let i = 0; i < view.length; i=i+4) {
-          saveData[1].push(Number(view[i+1]));
-          saveData[2].push(Number(view[i+2]));
-          saveData[3].push(Number(view[i+3]));
-          saveData[4].push(Number(view[i+4]));
-        }
-      break;
-    case 2:
-      for (let i = 0; i < view.length; i=i+2) {
-        saveData[5].push(Number(view[i+1]));
-        saveData[6].push(Number(view[i+2]));
+      counterPackets = counterPackets + view.length;
+      for (let i = 0; i < view.length; i = i + 4) {
+        counterFirstBuffer = counterFirstBuffer + 1;
+        saveData[1].push(Number(view[i + 1]));
+        saveData[2].push(Number(view[i + 2]));
+        saveData[3].push(Number(view[i + 3]));
+        saveData[4].push(Number(view[i + 4]));
       }
       break;
-    case 3:
-      for (let i = 0; i < view.length; i=i+4) {
-        saveData[7].push(Number(view[i+1]));
-        saveData[8].push(Number(view[i+2]));
-        saveData[9].push(Number(view[i+3]));
-        saveData[10].push(Number(view[i+4]));
-      }
+    // case 2:
+    //   for (let i = 0; i < view.length; i = i + 2) {
+    //     counterSecondBuffer = counterSecondBuffer + 1;
+    //     saveData[5].push({
+    //       x: counterSecondBuffer,
+    //       y: Number(view[i + 1]),
+    //     });
+    //     saveData[6].push({
+    //       x: counterSecondBuffer,
+    //       y: Number(view[i + 2]),
+    //     });
+    //   }
+    //   break;
+    // case 3:
+    //   for (let i = 0; i < view.length; i = i + 4) {
+    //     counterThirdBuffer = counterThirdBuffer + 1;
+    //     saveData[7].push({
+    //       x: counterThirdBuffer,
+    //       y: Number(view[i + 1]),
+    //     });
+    //     saveData[8].push({
+    //       x: counterThirdBuffer,
+    //       y: Number(view[i + 2]),
+    //     });
+    //     saveData[9].push({
+    //       x: counterThirdBuffer,
+    //       y: Number(view[i + 3]),
+    //     });
+    //     saveData[10].push({
+    //       x: counterThirdBuffer,
+    //       y: Number(view[i + 4]),
+    //     });
+    //   }
+
       break;
     default:
       break;
   }
-
-  counter = counter + 1;
-  labels.push(counter);
+  viewData();
 }
 
 const viewData = () => {
   Object.keys(detectorsData).forEach((key) => {
-    detectorsData[key] = detectorsData[key].concat(saveData[key]);
+    detectorsData[key] = saveData[key];
   })
-
+  labels = [];
+  for (let i = 0; i < detectorsData[1].length; i++) {
+    labels.push(i);
+  }
+  console.log(detectorsData[1]);
+  console.log(labels);
   myChart.update();
 }
 
@@ -309,4 +330,8 @@ buttonGetData.addEventListener('click', () => {
     closeSocket();
     start = false;
   }
+});
+
+buttonReset.addEventListener('click', () => {
+  viewData();
 });
