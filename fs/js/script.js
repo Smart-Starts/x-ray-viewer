@@ -25,6 +25,7 @@ let counterSecondBuffer = 0;
 let counterThirdBuffer = 0;
 let counterPackets = 0;
 const buttonReset = document.querySelector('#button-reset');
+const buttonGraph = document.querySelector('#button-graph');
 
 let detectorsData = {
   1: [],
@@ -298,16 +299,26 @@ const saveDataToArray = (data) => {
     default:
       break;
   }
-  viewData();
+ // viewData();
 }
 
 const viewData = () => {
-  Object.keys(detectorsData).forEach((key) => {
-    detectorsData[key] = saveData[key];
-  })
-  labels = [];
-  for (let i = 0; i < detectorsData[1].length; i++) {
+  // Object.keys(detectorsData).forEach((key) => {
+  //   detectorsData[key] = saveData[key];
+  // })
+
+ //labels = [];
+let decim=0;
+  for (let i = 0; i <saveData[1].length; i++) {
+    decim++;
+    if (decim>100){
+    detectorsData[1].push(saveData[1][i+1]); 
+    detectorsData[2].push(saveData[2][i+1]); 
+    detectorsData[3].push(saveData[3][i+1]); 
+    detectorsData[4].push(saveData[4][i+1]); 
     labels.push(i);
+    decim=0;
+    }
   }
   console.log(detectorsData[1]);
   console.log(labels);
@@ -315,8 +326,7 @@ const viewData = () => {
 }
 
 const resetData = () => {
-  counter = 0; // Сбросить счетчик;
-  labels = [];
+  myChart.destroy();
   detectorsData = {
     1: [],
     2: [],
@@ -329,7 +339,8 @@ const resetData = () => {
     9: [],
     10: [],
   };
-  myChart.update();
+  labels = [0];
+  myChart = new Chart(ctx, config);
 }
 
 const buttonGetData = document.querySelector('#button-get-data');
@@ -348,5 +359,9 @@ buttonGetData.addEventListener('click', () => {
 });
 
 buttonReset.addEventListener('click', () => {
+  resetData();
+});
+
+buttonGraph.addEventListener('click', () => {
   viewData();
 });
