@@ -19,12 +19,12 @@
       <div class="wrapper">
         <h2>Управление:</h2>
         <div class="button-wrapper">
-          <button id="button-get-data" class="get-button">Старт / Стоп</button>
-          <button id="button-graph">Вывод графика</button>
-          <button id="button-reset">Сброс</button>
-          <a id="button-save">Сохранить в файл</a>
-          <div class = 'Progress' id="myProgress">
-            <div class = 'bar' id="myBar">10%</div>
+          <button id="button-get-data" class="button get-button">Старт / Стоп</button>
+          <button id="button-graph" class="button">Вывод графика</button>
+          <button id="button-reset" class="button">Сброс</button>
+          <a class="button" id="button-save">Сохранить в файл</a>
+          <div class="progress-wrapper" id="my-progress">
+            <div class="bar" id="bar"></div>
           </div>
         </div>
       </div>
@@ -35,75 +35,6 @@
         <canvas id="myChart" width="400" height="400"></canvas>
       </div>
     </section>
-    <section class="viewer">
-      <h2>Принятые данные:</h2>
-      <div class="wrapper">
-        <ul>
-          <li>
-            <label for="1">
-              Детектор 1:
-            </label>
-            <input class="detector-input" readonly type="text" name="first-detector" id="1" placeholder="Waiting...">
-          </li>
-          <li for>
-            <label>
-              Детектор 2:
-            </label>
-            <input class="detector-input" readonly type="text" name="second-detector" id="2" placeholder="Waiting...">
-          </li>
-          <li>
-            <label>
-              Детектор 3:
-            </label>
-            <input class="detector-input" readonly type="text" name="third-detector" id="3" placeholder="Waiting...">
-          </li>
-          <li>
-            <label>
-              Детектор 4:
-            </label>
-            <input class="detector-input" readonly type="text" name="fourth-detector" id="4" placeholder="Waiting...">
-          </li>
-          <li>
-            <label>
-              Детектор 5:
-            </label>
-            <input class="detector-input" readonly type="text" name="fifth-detector" id="5" placeholder="Waiting...">
-          </li>
-          <li>
-            <label>
-              Детектор 6:
-            </label>
-            <input class="detector-input" readonly type="text" name="sixth-detector" id="6" placeholder="Waiting...">
-          </li>
-          <li>
-            <label>
-              Детектор 7:
-            </label>
-            <input class="detector-input" readonly type="text" name="eigth-detector" id="7" placeholder="Waiting...">
-          </li>
-          <li>
-            <label>
-              Детектор 8:
-            </label>
-            <input class="detector-input" readonly type="text" name="ninth-detector" id="8" placeholder="Waiting...">
-          </li>
-          <li>
-            <label>
-              Детектор 9:
-            </label>
-            <input class="detector-input" readonly type="text" name="eigth-detector" id="9" placeholder="Waiting...">
-          </li>
-          <li>
-            <label>
-              Детектор 10:
-            </label>
-            <input class="detector-input" readonly type="text" name="ninth-detector" id="10" placeholder="Waiting...">
-          </li>
-        </ul>
-      </div>
-    </section>
-
-
     <section class="settings">
       <h2>Настройки:</h2>
       <div class="wrapper">
@@ -113,7 +44,7 @@
           </label>
           <input type="text" name="ip" id="ip"
             pattern="^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$">
-          <button type="submit">Сохранить IP</button>
+          <button class="button" type="submit">Сохранить IP</button>
         </form>
       </div>
     </section>
