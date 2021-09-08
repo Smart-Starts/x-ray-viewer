@@ -1,7 +1,7 @@
 const DATA_URL = '/data';
 const IP_URL = '/ip';
 const TIME_TO_REQUEST = 100;
-let defaultUrl = '192.168.66.220:8080';
+let defaultUrl = '192.168.1.220:8080';
 let socket = null;
 const buttonReset = document.querySelector('#button-reset');
 const buttonGraph = document.querySelector('#button-graph');
@@ -174,7 +174,7 @@ const openSocket = (onSuccess, url) => {
       console.log('open');
     };
     socket.onmessage = function (event) {
-      console.log(event.data);
+      //console.log(event.data);
       onSuccess(event.data);
     };
   } catch (error) {
@@ -260,7 +260,19 @@ const resetData = () => {
   myChart.update();
 }
 const fsSaveData = () => {
-  const dataString = JSON.stringify(saveData);
+  let dataString = "Детектор 1  Детектор 2  Детектор 3  Детектор 4 Детектор 5 Детектор 6 Детектор 7 Детектор 8 Детектор 9 Детектор 10\n";
+  let detStr="\n";
+  for (let i =0 ; i<saveData[1].length-1;i++)
+  {
+    detStr = detStr + saveData[1][i] +"\t"+ saveData[2][i] +"\t"+ saveData[3][i]+"\t" + saveData[4][i] +"\n" ;
+  }
+  dataString = dataString + detStr;
+  //  dataString = JSON.stringify(saveData);
+  //var obj = JSON.parse(dataString);
+ // let OutStr;S
+ // OutStr = obj.1;
+  console.log("gfh");
+//  console.log(obj);
   let blob = new Blob([dataString], {
     type: "text/plain;charset=utf-8"
   });
@@ -273,6 +285,8 @@ let start = false;
 buttonGetData.addEventListener('click', () => {
   if (!start) {
     buttonGetData.classList.add('get-button--start');
+    var paramsString = window.location;
+    console.log(paramsString);
     openSocket(saveDataToArray, defaultUrl); // start
     start = true;
   } else {
