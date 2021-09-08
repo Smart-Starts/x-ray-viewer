@@ -26,6 +26,7 @@ let counterThirdBuffer = 0;
 let counterPackets = 0;
 const buttonReset = document.querySelector('#button-reset');
 const buttonGraph = document.querySelector('#button-graph');
+const buttonSave = document.querySelector('#button-save');
 
 let detectorsData = {
   1: [],
@@ -253,6 +254,7 @@ const saveDataToArray = (data) => {
   switch (view[0]) {
     case 1:
       counterPackets = counterPackets + view.length;
+
       for (let i = 0; i < view.length; i = i + 4) {
         counterFirstBuffer = counterFirstBuffer + 1;
         saveData[1].push(Number(view[i + 1]));
@@ -260,46 +262,30 @@ const saveDataToArray = (data) => {
         saveData[3].push(Number(view[i + 3]));
         saveData[4].push(Number(view[i + 4]));
       }
+      
       break;
-    // case 2:
-    //   for (let i = 0; i < view.length; i = i + 2) {
-    //     counterSecondBuffer = counterSecondBuffer + 1;
-    //     saveData[5].push({
-    //       x: counterSecondBuffer,
-    //       y: Number(view[i + 1]),
-    //     });
-    //     saveData[6].push({
-    //       x: counterSecondBuffer,
-    //       y: Number(view[i + 2]),
-    //     });
-    //   }
-    //   break;
-    // case 3:
-    //   for (let i = 0; i < view.length; i = i + 4) {
-    //     counterThirdBuffer = counterThirdBuffer + 1;
-    //     saveData[7].push({
-    //       x: counterThirdBuffer,
-    //       y: Number(view[i + 1]),
-    //     });
-    //     saveData[8].push({
-    //       x: counterThirdBuffer,
-    //       y: Number(view[i + 2]),
-    //     });
-    //     saveData[9].push({
-    //       x: counterThirdBuffer,
-    //       y: Number(view[i + 3]),
-    //     });
-    //     saveData[10].push({
-    //       x: counterThirdBuffer,
-    //       y: Number(view[i + 4]),
-    //     });
-    //   }
+    case 2:
+      for (let i = 0; i < view.length; i = i + 4) {
+        counterFirstBuffer = counterFirstBuffer + 1;
+        saveData[5].push(Number(view[i + 1]));
+        saveData[6].push(Number(view[i + 2]));
+      }
+      break;
+    case 3:
+      for (let i = 0; i < view.length; i = i + 4) {
+        counterFirstBuffer = counterFirstBuffer + 1;
+        saveData[7].push(Number(view[i + 1]));
+        saveData[8].push(Number(view[i + 2]));
+        saveData[9].push(Number(view[i + 3]));
+        saveData[10].push(Number(view[i + 4]));
+      }
+      break;
 
       break;
     default:
       break;
   }
- // viewData();
+ 
 }
 
 const viewData = () => {
@@ -311,11 +297,17 @@ const viewData = () => {
 let decim=0;
   for (let i = 0; i <saveData[1].length; i++) {
     decim++;
-    if (decim>100){
+    if (decim>1000){
     detectorsData[1].push(saveData[1][i+1]); 
     detectorsData[2].push(saveData[2][i+1]); 
     detectorsData[3].push(saveData[3][i+1]); 
     detectorsData[4].push(saveData[4][i+1]); 
+    detectorsData[5].push(saveData[5][i+1]); 
+    detectorsData[6].push(saveData[6][i+1]); 
+    detectorsData[7].push(saveData[7][i+1]); 
+    detectorsData[8].push(saveData[8][i+1]); 
+    detectorsData[9].push(saveData[9][i+1]); 
+    detectorsData[10].push(saveData[10][i+1]); 
     labels.push(i);
     decim=0;
     }
@@ -326,23 +318,28 @@ let decim=0;
 }
 
 const resetData = () => {
-  myChart.destroy();
-  detectorsData = {
-    1: [],
-    2: [],
-    3: [],
-    4: [],
-    5: [],
-    6: [],
-    7: [],
-    8: [],
-    9: [],
-    10: [],
-  };
-  labels = [0];
-  myChart = new Chart(ctx, config);
-}
 
+ detectorsData[1].splice(0,detectorsData[1].length);
+ detectorsData[2].splice(0,detectorsData[2].length);
+ detectorsData[3].splice(0,detectorsData[3].length);
+ detectorsData[4].splice(0,detectorsData[4].length);
+ detectorsData[5].splice(0,detectorsData[5].length);
+ detectorsData[6].splice(0,detectorsData[6].length);
+ detectorsData[7].splice(0,detectorsData[7].length);
+ detectorsData[8].splice(0,detectorsData[8].length);
+ detectorsData[9].splice(0,detectorsData[9].length);
+ detectorsData[10].splice(0,detectorsData[10].length);
+
+console.log(myChart);
+  myChart.update();
+}
+const FSsaveData = () =>{
+  const dataString = JSON.stringify(saveData);
+  var blob = new Blob([dataString], { type: "text/plain;charset=utf-8" });
+  buttonSave.setAttribute("href", URL.createObjectURL(blob)) ;
+  buttonSave.setAttribute("download", "rentgendata.txt")
+
+}
 const buttonGetData = document.querySelector('#button-get-data');
 
 let start = false;
@@ -364,4 +361,8 @@ buttonReset.addEventListener('click', () => {
 
 buttonGraph.addEventListener('click', () => {
   viewData();
+});
+
+buttonSave.addEventListener('click', () => {
+ FSsaveData();
 });
