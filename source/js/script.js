@@ -8,6 +8,7 @@ const buttonGraph = document.querySelector('#button-graph');
 const buttonSave = document.querySelector('#button-save');
 const buttonGetData = document.querySelector('#button-get-data');
 const packets = document.querySelector('.quantity-packets');
+const SET_IP_ADDRESS = '/setip';
 let packetsCounter = 0;
 let detectorsData = {
   1: [],
@@ -200,23 +201,31 @@ const saveDataToArray = (data) => {
 
   switch (view[0]) {
     case 1:
-      for (let i = 0; i < view.length; i = i + 4) {
+      for (let i = 0; i < view.length - 4; i = i + 4) {
         saveData[1].push(Number(view[i + 1]));
         saveData[2].push(Number(view[i + 2]));
         saveData[3].push(Number(view[i + 3]));
         saveData[4].push(Number(view[i + 4]));
+
+        if (Number.isNaN(Number(view[i + 1])) || (Number(view[i + 1])) === undefined) {
+          console.log(view[i + 1]);
+          console.log(i);
+          console.log(view);
+
+          debugger;
+        }
         packetsCounter++;
       }
       viewPackets();
       break;
     case 2:
-      for (let i = 0; i < view.length; i = i + 4) {
+      for (let i = 0; i < view.length - 2; i = i + 2) {
         saveData[5].push(Number(view[i + 1]));
         saveData[6].push(Number(view[i + 2]));
       }
       break;
     case 3:
-      for (let i = 0; i < view.length; i = i + 4) {
+      for (let i = 0; i < view.length - 4; i = i + 4) {
         saveData[7].push(Number(view[i + 1]));
         saveData[8].push(Number(view[i + 2]));
         saveData[9].push(Number(view[i + 3]));
@@ -337,9 +346,7 @@ const getIp = (url, newIp) => {
       })
       .then((response) => response.json())
       .then((newIp) => {
-        // При успешной отправке в инпут вывести сообщение
-        ipForm.value = `Успешно! Новый айпи: ${newIp}`;
-        defaultUrl = newIp;
+       alert(`Успешно! Новый айпи: ${newIp}, перезагрузите устройство!`);
       })
       .catch((error) => console.log(error));
   } catch (error) {
@@ -350,5 +357,5 @@ const getIp = (url, newIp) => {
 // Событие отправки формы
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  getIp(defaultUrl, ipForm.value);
+  getIp(SET_IP_ADDRESS, ipForm.value);
 });
