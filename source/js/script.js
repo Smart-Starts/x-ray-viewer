@@ -1,7 +1,9 @@
 const DATA_URL = '/data';
 const IP_URL = '/ip';
 const TIME_TO_REQUEST = 100;
-let defaultUrl = '192.168.66.220:8080';
+let defaultUrl = `192.168.66.220:8080`;
+//let defaultUrl2 = `${window.location.hostname}:8080`;
+
 let socket = null;
 const buttonReset = document.querySelector('#button-reset');
 const buttonGraph = document.querySelector('#button-graph');
@@ -206,14 +208,6 @@ const saveDataToArray = (data) => {
         saveData[2].push(Number(view[i + 2]));
         saveData[3].push(Number(view[i + 3]));
         saveData[4].push(Number(view[i + 4]));
-
-        if (Number.isNaN(Number(view[i + 1])) || (Number(view[i + 1])) === undefined) {
-          console.log(view[i + 1]);
-          console.log(i);
-          console.log(view);
-
-          debugger;
-        }
         packetsCounter++;
       }
       viewPackets();
