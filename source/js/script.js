@@ -1,14 +1,14 @@
 const DATA_URL = '/data';
 const IP_URL = '/ip';
 const TIME_TO_REQUEST = 100;
-let defaultUrl = '192.168.1.220:8080';
+let defaultUrl = '192.168.66.220:8080';
 let socket = null;
 const buttonReset = document.querySelector('#button-reset');
 const buttonGraph = document.querySelector('#button-graph');
 const buttonSave = document.querySelector('#button-save');
 const buttonGetData = document.querySelector('#button-get-data');
-const bar = document.querySelector('#bar');
-
+const packets = document.querySelector('.quantity-packets');
+let packetsCounter = 0;
 let detectorsData = {
   1: [],
   2: [],
@@ -191,6 +191,9 @@ const closeSocket = () => {
   }
 }
 
+const viewPackets = () => {
+  packets.textContent = '' + packetsCounter;
+}
 
 const saveDataToArray = (data) => {
   let view = new Uint16Array(data);
@@ -202,7 +205,9 @@ const saveDataToArray = (data) => {
         saveData[2].push(Number(view[i + 2]));
         saveData[3].push(Number(view[i + 3]));
         saveData[4].push(Number(view[i + 4]));
+        packetsCounter++;
       }
+      viewPackets();
       break;
     case 2:
       for (let i = 0; i < view.length; i = i + 4) {
@@ -224,12 +229,7 @@ const saveDataToArray = (data) => {
 
 }
 
-const viewProgressBar = (max,step) => {
-
-}
-
 const viewData = () => {
-
   let decim = 0;
   for (let i = 0; i < saveData[1].length; i++) {
     decim++;
@@ -244,7 +244,6 @@ const viewData = () => {
       detectorsData[8].push(saveData[8][i + 1]);
       detectorsData[9].push(saveData[9][i + 1]);
       detectorsData[10].push(saveData[10][i + 1]);
-
       labels.push(i);
       decim = 0;
     }
@@ -256,28 +255,37 @@ const resetData = () => {
   for (let i = 1; i <= 10; i++) {
     detectorsData[i].splice(0, detectorsData[i].length);
   }
-
+  packetsCounter = 0;
+  labels.splice(0,labels.length);
+  viewPackets();
   myChart.update();
 }
-const fsSaveData = () => {
-  let dataString = "Детектор 1  Детектор 2  Детектор 3  Детектор 4 Детектор 5 Детектор 6 Детектор 7 Детектор 8 Детектор 9 Детектор 10\n";
-  let detStr="\n";
-  for (let i =0 ; i<saveData[1].length-1;i++)
-  {
-    detStr = detStr + saveData[1][i] +"\t"+ saveData[2][i] +"\t"+ saveData[3][i]+"\t" + saveData[4][i] +"\n" ;
+
+const createBeautifullString = () => {
+  let dataString = 'Детектор 1  Детектор 2  Детектор 3  Детектор 4 Детектор 5 Детектор 6 Детектор 7 Детектор 8 Детектор 9 Детектор 10\n';
+  let detStr = '\n';
+  for (let i = 0; i < saveData[1].length - 1; i++) {
+    for (let j = 1; j <= 10; j++) {
+      if ( Number.isNaN(saveData[j][i]) || saveData[j][i] === undefined) {
+        saveData[j][i] = 0;
+      }
+      detStr = detStr + saveData[j][i] + '\t';
+      if (j === 10) {
+        detStr = detStr + '\n';
+      }
+    }
   }
   dataString = dataString + detStr;
-  //  dataString = JSON.stringify(saveData);
-  //var obj = JSON.parse(dataString);
- // let OutStr;S
- // OutStr = obj.1;
-  console.log("gfh");
-//  console.log(obj);
+  return dataString;
+}
+
+const fsSaveData = () => {
+  const dataString = createBeautifullString();
   let blob = new Blob([dataString], {
-    type: "text/plain;charset=utf-8"
+    type: 'text/plain;charset=utf-8'
   });
-  buttonSave.setAttribute("href", URL.createObjectURL(blob));
-  buttonSave.setAttribute("download", "rentgendata.txt")
+  buttonSave.setAttribute('href', URL.createObjectURL(blob));
+  buttonSave.setAttribute('download', 'rentgendata.txt')
 }
 
 
@@ -307,7 +315,6 @@ buttonGraph.addEventListener('click', () => {
 buttonSave.addEventListener('click', () => {
   fsSaveData();
 });
-
 
 
 const form = document.querySelector('.settings__form');

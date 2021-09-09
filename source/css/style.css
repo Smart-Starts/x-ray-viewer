@@ -185,6 +185,11 @@ h2 {
   position: relative;
 }
 
+.get-button--start:hover,
+.get-button--start:focus {
+  background-color: var(--red);
+}
+
 .get-button--start::after {
   position: absolute;
   content: "";
@@ -221,15 +226,11 @@ h2 {
   height: 30px;
 }
 
-.bar {
-  width: 0%;
-  height: 30px;
-  background-color: var(--blue);
-  text-align: center; /* To center it horizontally (if you want) */
-  line-height: 30px; /* To center it vertically */
-  color: white;
+.quantity-title {
+  margin-right: 10px;
+  font-size: 16px;
+  font-weight: 600;
 }
-
 
 @keyframes loading {
   0% {
