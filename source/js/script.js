@@ -335,13 +335,9 @@ ipForm.addEventListener('invalid', () => {
 
 const getIp = (url, newIp) => {
   try {
-    fetch(url, {
-        newIp,
-      })
+    fetch(url + ':' + newIp + ".")
       .then((response) => response.json())
-      .then((newIp) => {
-       alert(`Успешно! Новый айпи: ${newIp}, перезагрузите устройство!`);
-      })
+      .then((newAddress) => alert(`Успешно! Новый айпи: ${newAddress["ip"]}, перезагрузите устройство!`))
       .catch((error) => console.log(error));
   } catch (error) {
     console.log(error)
