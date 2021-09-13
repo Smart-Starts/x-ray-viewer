@@ -146,8 +146,29 @@ let data = {
     },
   ]
 };
+
+// настройки zoom
+const zoomOptions = {
+  limits: {
+    x: {min: 0, minRange: 500},
+  },
+  pan: {
+    enabled: true,
+    mode: 'x',
+  },
+  zoom: {
+    wheel: {
+      enabled: true,
+    },
+    pinch: {
+      enabled: true,
+    },
+    mode: 'x',
+  },
+}
+
 // настройки chart
-var config = {
+const config = {
   type: 'line',
   data: data,
   radius: 0,
@@ -171,25 +192,12 @@ var config = {
         display: true,
         text: 'График значений детекторов'
       },
-      zoom: {
-        zoom: {
-          wheel: {
-            enabled: true,
-          },
-          pinch: {
-            enabled: true,
-          },
-          drag: {
-            enabled: true,
-          },
-          mode: 'x',
-        },
-      },
+      zoom: zoomOptions,
     },
   },
 };
 
-var myChart = new Chart(ctx, config);
+let myChart = new Chart(ctx, config);
 
 //Web Socket Socket
 const openSocket = (onSuccess, url) => {
@@ -280,6 +288,7 @@ const viewData = () => {
 const resetData = () => {
   for (let i = 1; i <= 10; i++) {
     detectorsData[i].splice(0, detectorsData[i].length);
+    saveData[i].splice(0, saveData[i].length);
   }
   packetsCounter = 0;
   labels.splice(0,labels.length);
@@ -335,7 +344,6 @@ buttonReset.addEventListener('click', () => {
 });
 
 buttonGraph.addEventListener('click', () => {
-  resetData();
   viewData();
 });
 
