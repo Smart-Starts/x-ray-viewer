@@ -166,7 +166,15 @@ var config = {
   },
 };
 
+
+mouse_buttons = {
+  zoom: 4, //optional
+  select: 2, //optional
+  pan: 1 //optional
+};
 var myChart = new Chart(ctx, config);
+let enhancer = new ChartJSEnhancements(myChart);
+enhancer.initialize(mouse_buttons);
 
 //Web Socket Socket
 const openSocket = (onSuccess, url) => {
@@ -312,6 +320,7 @@ buttonReset.addEventListener('click', () => {
 });
 
 buttonGraph.addEventListener('click', () => {
+  resetData();
   viewData();
 });
 
