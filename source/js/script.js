@@ -10,8 +10,8 @@ Chart.register(zoomPlugin);
 const DATA_URL = '/data';
 const IP_URL = '/ip';
 const TIME_TO_REQUEST = 100;
-let defaultUrl = `192.168.66.220:8080`;
-//let defaultUrl2 = `${window.location.hostname}:8080`;
+//let defaultUrl = `192.168.66.220:8080`;
+let defaultUrl = `${window.location.hostname}:8080`;
 
 let socket = null;
 const buttonReset = document.querySelector('#button-reset');
@@ -264,7 +264,8 @@ const saveDataToArray = (data) => {
 }
 
 const viewData = () => {
-  let decim = 0;
+  let decim = 0; 
+  resetData();
   for (let i = 0; i < saveData[1].length; i++) {
     decim++;
     if (decim > 1000) {
@@ -282,15 +283,15 @@ const viewData = () => {
       decim = 0;
     }
   }
+ 
+  myChart.resetZoom();
   myChart.update();
 }
 
 const resetData = () => {
   for (let i = 1; i <= 10; i++) {
     detectorsData[i].splice(0, detectorsData[i].length);
-    saveData[i].splice(0, saveData[i].length);
   }
-  packetsCounter = 0;
   labels.splice(0,labels.length);
   viewPackets();
   myChart.update();
@@ -338,9 +339,19 @@ buttonGetData.addEventListener('click', () => {
     start = false;
   }
 });
-
+const resetAll =() =>
+{
+  for (let i = 1; i <= 10; i++) {
+    detectorsData[i].splice(0, detectorsData[i].length);
+    saveData[i].splice(0, saveData[i].length);
+  }
+  packetsCounter = 0;
+  labels.splice(0,labels.length);
+  viewPackets();
+  myChart.update();
+}
 buttonReset.addEventListener('click', () => {
-  resetData();
+  resetAll();
 });
 
 buttonGraph.addEventListener('click', () => {
