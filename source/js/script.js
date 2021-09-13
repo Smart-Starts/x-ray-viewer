@@ -1,3 +1,12 @@
+// include chart.js
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
+
+// include zoom
+import zoomPlugin from 'chartjs-plugin-zoom';
+
+Chart.register(zoomPlugin);
+
 const DATA_URL = '/data';
 const IP_URL = '/ip';
 const TIME_TO_REQUEST = 100;
@@ -161,20 +170,26 @@ var config = {
       title: {
         display: true,
         text: 'График значений детекторов'
-      }
+      },
+      zoom: {
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+          pinch: {
+            enabled: true,
+          },
+          drag: {
+            enabled: true,
+          },
+          mode: 'x',
+        },
+      },
     },
   },
 };
 
-
-mouse_buttons = {
-  zoom: 4, //optional
-  select: 2, //optional
-  pan: 1 //optional
-};
 var myChart = new Chart(ctx, config);
-let enhancer = new ChartJSEnhancements(myChart);
-enhancer.initialize(mouse_buttons);
 
 //Web Socket Socket
 const openSocket = (onSuccess, url) => {
