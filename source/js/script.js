@@ -150,7 +150,7 @@ let data = {
 // настройки zoom
 const zoomOptions = {
   limits: {
-    x: {min: 0, minRange: 500},
+    //x: {min: 0, minRange: 500},
   },
   pan: {
     enabled: true,
@@ -198,14 +198,12 @@ const config = {
 };
 
 let myChart = new Chart(ctx, config);
-
 //Web Socket Socket
 const openSocket = (onSuccess, url) => {
   try {
     socket = new WebSocket(`ws://${defaultUrl}`);
     socket.binaryType = 'arraybuffer';
     socket.onopen = function (event) {
-      console.log('open');
     };
     socket.onmessage = function (event) {
       //console.log(event.data);
@@ -330,7 +328,6 @@ buttonGetData.addEventListener('click', () => {
   if (!start) {
     buttonGetData.classList.add('get-button--start');
     var paramsString = window.location;
-    console.log(paramsString);
     openSocket(saveDataToArray, defaultUrl); // start
     start = true;
   } else {
@@ -365,7 +362,7 @@ buttonSave.addEventListener('click', () => {
 
 const form = document.querySelector('.settings__form');
 const ipForm = document.querySelector('#ip');
-ipForm.placeholder = `Дефолтный айпи: ${defaultUrl}`;
+ipForm.placeholder = ` `;
 
 // Валидация формы
 ipForm.addEventListener('invalid', () => {
