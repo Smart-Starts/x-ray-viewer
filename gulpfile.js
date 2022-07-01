@@ -14,7 +14,7 @@ var webpackStream = require('webpack-stream');
 gulp.task('scripts', function () {
   return gulp.src('source/js/script.js')
     .pipe(webpackStream({
-      mode: 'development',
+      mode: 'production',
       output: {
         filename: 'script.js',
       },

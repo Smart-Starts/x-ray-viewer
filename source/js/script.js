@@ -19,6 +19,7 @@ const buttonGraph = document.querySelector('#button-graph');
 const buttonSave = document.querySelector('#button-save');
 const buttonGetData = document.querySelector('#button-get-data');
 const packets = document.querySelector('.quantity-packets');
+const temp = document.querySelector('.temp-packets');
 const SET_IP_ADDRESS = '/setip';
 let packetsCounter = 0;
 let detectorsData = {
@@ -207,7 +208,18 @@ const config = {
     },
   },
 };
-
+//alert(`Температура: ${temper["T"]}`))
+window.onload = function GetTemp(){
+  try {
+    fetch("/gettemp")
+      .then((response) => response.json())
+      .then((temper) => temp.textContent = temper["T"])
+      .catch((error) => console.log(error));
+  } catch (error) {
+    console.log(error)
+  }
+  setTimeout(GetTemp,5000);
+}
 let myChart = new Chart(ctx, config);
 //Web Socket Socket
 const openSocket = (onSuccess, url) => {
