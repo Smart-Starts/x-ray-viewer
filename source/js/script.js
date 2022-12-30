@@ -254,30 +254,35 @@ var cnt2buffer = 0;
 const saveDataToArray = (data) => {
   let view = new Uint16Array(data);
   
-  for (let i = 0; i < 1024; i = i + 4) {
+  for (let i = 0; i < 1000; i = i + 10) {
 
     saveData[1].push(Number(view[i]));
-    saveData[2].push(Number(view[i+2])); 
-    saveData[3].push(Number(view[i+3]));
-    saveData[4].push(Number(view[i+1]));
-
+    saveData[2].push(Number(view[i+1])); 
+    saveData[3].push(Number(view[i+2]));
+    saveData[4].push(Number(view[i+3]));
+    saveData[5].push(Number(view[i+4]));
+    saveData[6].push(Number(view[i+5]));
+    saveData[7].push(Number(view[i+6]));
+    saveData[8].push(Number(view[i+7]));
+    saveData[9].push(Number(view[i+8]));
+    saveData[10].push(Number(view[i+9]));
    // saveData[1].push(Number(view[i]));
    // saveData[2].push(Number(view[i+1])); 
    // saveData[3].push(Number(view[i+2]));
    // saveData[4].push(Number(view[i+3]));
     
-    packetsCounter++;
-  }
-  for (let i = 1024; i < 1024+512; i = i + 2) {
-    saveData[5].push(Number(view[i]));
-    saveData[6].push(Number(view[i+1])); 
-  }
-  for (let i = 1536; i < 1536+1024; i = i + 4) {
-    saveData[7].push(Number(view[i]));
-    saveData[8].push(Number(view[i+1])); 
-    saveData[9].push(Number(view[i+2]));
-    saveData[10].push(Number(view[i+3])); 
-  } 
+    
+  }packetsCounter++;
+  // for (let i = 1024; i < 1024+512; i = i + 2) {
+  //   saveData[5].push(Number(view[i]));
+  //   saveData[6].push(Number(view[i+1])); 
+  // }
+  // for (let i = 1536; i < 1536+1024; i = i + 4) {
+  //   saveData[7].push(Number(view[i]));
+  //   saveData[8].push(Number(view[i+1])); 
+  //   saveData[9].push(Number(view[i+2]));
+  //   saveData[10].push(Number(view[i+3])); 
+  // } 
     
   viewPackets();
   //console.log(saveData);
