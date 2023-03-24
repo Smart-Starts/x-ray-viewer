@@ -292,8 +292,8 @@ const viewData = () => {
   let decim = 0; 
   resetData();
   for (let i = 0; i < saveData[1].length; i++) {
-    decim++;
-    if (decim > 1000) {
+ //   decim++;
+   // if (decim > 1000) {
       detectorsData[1].push(saveData[1][i]);
       detectorsData[2].push(saveData[2][i]);
       detectorsData[3].push(saveData[3][i]);
@@ -306,7 +306,7 @@ const viewData = () => {
       detectorsData[10].push(saveData[10][i]);
       labels.push(i);
       decim = 0;
-    }
+   // }
   }
  
   myChart.resetZoom();
